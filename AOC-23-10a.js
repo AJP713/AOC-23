@@ -12,19 +12,105 @@ for(let i =0; i<data.length; i++){
     data[i]=data[i].split("")
 }
 
-//console.log(data)
-console.log(data[109])
+console.log(data[1])
 
-console.log(findS(data))
+
+console.log("S at: " + findS(data))
+// console.log(data[109][28])  //starting S  109,28
+// console.log(data[110][28])  //connected to S (below)  110,28
+// console.log(data[109][29])  //connected to S right  109,29
+
+
+let prevLoc = [109,28] //[row,col] the S is at
+let currLoc = [109,29] //[row,col] of pipe connected to S
+let currChar = data[currLoc[0]][currLoc[1]]
+let nextLoc
+let pipeCount = 0
+let atS = false
+
+while(!atS){
+    //console.log("---iteration---")
+    nextLoc = nextPos(prevLoc,currLoc,currChar)
+    //console.log("nextLoc "+ nextLoc)
+    pipeCount++
+    prevLoc = currLoc
+    currLoc = nextLoc
+    currChar = data[currLoc[0]][currLoc[1]]
+    if(currChar=="S"){
+        atS = true
+        console.log("done, count= "+ pipeCount)
+    }
+   // console.log("prev " + prevLoc + " curr: " +currLoc+" currChar: "+ currChar)
+}
+console.log("--Final count--")
+console.log(Math.ceil(pipeCount/2))
+
+
+
 
 //finds row and column for S
 function findS(matrix){
     for(let r=0;r<matrix.length;r++){
         for(let c=0;c<matrix.length;c++){
             if(data[r][c]=="S"){
-                console.log("row:"+ r + "  col: " + c)
+                //console.log("S at row:"+ r + "  col: " + c)
                 return [r,c]
             }
         }
+    }
+}
+
+
+//prev = previous [row,col]
+//curr = current [row,col]
+//char = currnt character "F", "J" "-"... 
+function nextPos(prev, curr, char){
+    if(char=="-"){
+        if(prev[1]<curr[1]){ //left to right
+            return [curr[0],curr[1]+1]
+        }else{ //right to left
+            return [curr[0],curr[1]-1]
+        }
+    }
+    if(char=="|"){
+        if(prev[0]<curr[0]){ //up to down
+            return [curr[0]+1,curr[1]]
+        }else{ //down to up
+            return [curr[0]-1,curr[1]]
+        }
+    }
+    if(char=="F"){
+        if(prev[0]==curr[0]){//right to down
+            return [curr[0]+1,curr[1]]
+        }else{//down to right
+            return [curr[0],curr[1]+1]
+        }
+    }
+    if(char=="7"){
+        if(prev[0]==curr[0]){//left to down
+            return [curr[0]+1,curr[1]]
+        }else{//down to left
+            return [curr[0],curr[1]-1]
+        }
+    }
+    if(char=="J"){
+        if(prev[0]==curr[0]){//left to up
+            return [curr[0]-1,curr[1]]
+        }else{//up to left
+            return [curr[0],curr[1]-1]
+        }
+    }
+    if(char=="L"){
+        if(prev[0]==curr[0]){//right to up
+            return [curr[0]-1,curr[1]]
+        }else{//up to right
+            return [curr[0],curr[1]+1]
+        }
+    }else if(char=="S"){
+        console.log("BACK TO START")
+    }
+    
+    else{
+        console.log("error")
     }
 }
