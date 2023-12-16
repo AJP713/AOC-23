@@ -114,3 +114,5 @@ function nextPos(prev, curr, char){
         console.log("error")
     }
 }
+
+console.log("testing git push commit? ")
