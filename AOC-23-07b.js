@@ -58,25 +58,58 @@ function rankHand(handIn){
     
     if(hand[0]==hand[4]){
        // console.log("5 of kind")
+
         return 7
     }else if(hand[0]==hand[3]||hand[1]==hand[4]){
         //console.log("4 of kind")
-        return 6
+        if(hand[0]==1){
+            return 7
+        }else{return 6}    
+
+        
     }else if((hand[0]==hand[2] && hand[3]==hand[4])||(hand[0]==hand[1] && hand[2]==hand[4])){
       //  console.log("full house")
-        return 5
+        if(hand[0]==1){
+            return 7
+        }else{ return 5}
+
+       
     } else if(hand[0]==hand[2] || hand[1]==hand[3] ||hand[2]==hand[4]){
        // console.log("trips")
+       if(hand[0]==1){
+        console.log("was trips and now 4 of kind")
+        return 6
+       }else{
         return 4
+       }
+        
     }else if((hand[0]==hand[1] && hand[2]==hand[3])||(hand[0]==hand[1] && hand[3]==hand[4])||(hand[1]==hand[2] && hand[3]==hand[4])){
        // console.log("two pair")
-        return 3
+        if(hand[0]==1 && hand[1]==1){
+            console.log("was 2 pair and now 4 of kind")
+            return 6
+        }else if(hand[0]==1 && hand[1]!=1){
+            console.log("was 2 pair and now full house")
+            return 5
+        }else{
+            return 3
+        }
+
+
     }else if(hand[0]==hand[1] || hand[1]==hand[2]  || hand[2]==hand[3] || hand[3]==hand[4] ){
         //console.log("one pair")
-        return 2
+        if(hand[0]==1){
+            return 4
+        }else{
+            return 2}
+
     }    else{
        // console.log("highCard")
-        return 1
+       if(hand[0]==1){
+        return 2
+       }else{
+        return 1}
+        
     }
 }
 
@@ -92,7 +125,7 @@ function cardToNum(char){
     if(char == "Q"){
         return 12
     }
-    if(char == "J"){//joker is now lowest
+    if(char == "J"){//joker is now lowest and wild
         return 1
     }
     if(char == "T"){
