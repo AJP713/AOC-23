@@ -10,9 +10,20 @@ let directionsFull = "LRRLLRLLRRRLRRLRLRRRLRLLRLRRLRRRLRRRLRRLRRRLRLRRRLRLRRLRLR
 let directions = directionsFull
 let data =rawFull
 
-directions = directions.replaceAll("L",1)
-directions = directions.replaceAll("R",2)
+let newDir = ""
+
+//directions = directions.replaceAll("L","1")
+//directions = directions.replaceAll("R","2")
 directions = directions.split("")
+for(let i=0; i<directions.length;i++){
+    if(directions[i]=="L"){
+        directions[i]=1
+    }else{
+        directions[i]=2
+    }
+}
+console.log(directions)
+
 for(let i=0; i<directions.length;i++){
     directions[i]=Number(directions[i])
 }

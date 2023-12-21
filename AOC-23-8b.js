@@ -1,3 +1,5 @@
+//TODO I think this works but would take too long to end.
+
 let rawEx = "11A = (11B, XXX)@11B = (XXX, 11Z)@11Z = (11B, XXX)@22A = (22B, XXX)@22B = (22C, 22C)@22C = (22Z, 22Z)@22Z = (22B, 22B)@XXX = (XXX, XXX)"
 let directionsRawEx = "LR"
 
@@ -7,11 +9,20 @@ let rawFull = "HQV = (LSD, NCQ)@TLQ = (VLQ, KVB)@LND = (BFJ, LGF)@SRL = (VXG, BR
 let directionsFull = "LRRLLRLLRRRLRRLRLRRRLRLLRLRRLRRRLRRRLRRLRRRLRLRRRLRLRRLRLRRRLRRLLRRLLLRRLRLRRRLRLRRRLRRLRRRLRLLRRLRRLRLRRRLRRRLRRLRRLLRLLRRRLRLRRLRRRLRRLRRRLRRRLLLLRRLRLRRRLRRRLLRRLLRRLRRRLRRRLRLRLLRRLRLRLRLRLRRLRLRLRRRLRRLRRLRRLRRRLRLRRRLRLRRLRLLLLRRRLLRRRLRLLRRRLRLLRRRLLRRLRLRLRLRLLLLRRLRRRLRLLRRLRRRLRRRLRLRRLRRLRLLRRRR"
 
 let directions = directionsFull
-let data =rawFull
+let data = rawFull
 
-directions = directions.replaceAll("L",1)
-directions = directions.replaceAll("R",2)
+
+
 directions = directions.split("")
+for(let i=0; i<directions.length;i++){
+    if(directions[i]=="L"){
+        directions[i]=1
+    }else{
+        directions[i]=2
+    }
+}
+console.log(directions)
+
 for(let i=0; i<directions.length;i++){
     directions[i]=Number(directions[i])
 }
@@ -56,7 +67,10 @@ while(!allZ){
     if(allEndZ(currIs)){
         console.log("finished at: " + counter )
         allZ = true
-    }else{//console.log("not finished")
+    }else{
+        if(counter%100000 == 0){
+            console.log("tik")
+        }
     }
 }
 console.log("---------Final Count!!!    "+ counter)
