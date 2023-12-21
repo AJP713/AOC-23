@@ -62,17 +62,47 @@ function south(grid){
     return grid
 }
 
-//TODO function EAST
+
+function east(grid){
+    for(let r=0; r<grid.length; r++){
+        for(let c = grid[0].length-1;c>=0;c--){
+            if(grid[r][c]=="O"){
+                let nextC = c+1
+                while(nextC<grid[0].length && grid[r][nextC]=="."){
+                    grid[r][nextC] = "O"
+                    grid[r][nextC-1]="."
+                    nextC ++
+                }
+            }
+        }
+    }
+    return grid
+}
 
 
 
-displayRows(data)
-north(data)
-displayRows(data)
-west(data)
-displayRows(data)
-south(data)
-displayRows(data)
+
+function cycle(){
+    north(data)
+    west(data)
+    south(data)
+    east(data)
+}
+
+let endCycleStates=[]
+
+for(let i =0; i<20;i++){
+cycle()
+if(endCycleStates.includes(shortBoardState(data))){
+    console.log("repeat at i: "+ i)
+    console.log(endCycleStates.indexOf(shortBoardState(data)))
+}else{
+    console.log("new")
+    endCycleStates.push(shortBoardState(data))
+}
+console.log(shortBoardState(data))
+}
+//TODO  find cycle and use to find multiples of repeats
 
 console.log("----------TOTAL------------")
 totalLoad(data)
@@ -98,4 +128,16 @@ function displayRows(grid){
         console.log(grid[i])
     }
     console.log("---------------------------------------------")
+}
+
+function shortBoardState(grid){
+    let short = ""
+    for(let r=0; r<grid.length;r++){
+        for(let c=0; c<grid[0].length; c++){
+            if(grid[r][c]=="O"){
+                short = short + r + c + ","
+            }
+        }
+    }
+    return short
 }
