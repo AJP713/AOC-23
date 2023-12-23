@@ -89,20 +89,55 @@ function cycle(){
     east(data)
 }
 
-let endCycleStates=[]
+// let endCycleStates=[]
 
-for(let i =0; i<20;i++){
-cycle()
-if(endCycleStates.includes(shortBoardState(data))){
-    console.log("repeat at i: "+ i)
-    console.log(endCycleStates.indexOf(shortBoardState(data)))
-}else{
-    console.log("new")
-    endCycleStates.push(shortBoardState(data))
-}
-console.log(shortBoardState(data))
-}
+// for(let i =0; i<20;i++){
+// cycle()
+// if(endCycleStates.includes(shortBoardState(data))){
+//     console.log("repeat at i: "+ i)
+//     console.log(endCycleStates.indexOf(shortBoardState(data)))
+// }else{
+//     console.log("new")
+//     endCycleStates.push(shortBoardState(data))
+// }
+// console.log(shortBoardState(data))
+// }
 //TODO  find cycle and use to find multiples of repeats
+let allBoards = []
+let first = 0
+let cycleCount = 0
+let cycleLen = 0
+let repeat = false
+
+allBoards.push(shortBoardState(data))
+//console.log(shortBoardState(data))
+//console.log(allBoards.length)
+while(repeat==false){
+    cycle()
+    cycleCount ++
+    let x = shortBoardState(data)
+    if(allBoards.includes(x)){
+        console.log("REPEAT")
+        //console.log(x)
+        repeat = true
+        first = allBoards.indexOf(x)
+        cycleLen = cycleCount - first
+    }else{
+        allBoards.push(x)
+        //console.log("new")
+        //console.log(x)
+        //console.log(allBoards.length)
+    }
+}
+console.log("first: "+ first+ "  cycleLen: "+ cycleLen)
+console.log("Same??")
+console.log(allBoards[3])
+
+let extra = (20-first)%cycleLen  //change to 100000000 ??
+console.log("extra: " + extra)
+for(let i = 0; i<extra;i++){
+    cycle()
+}
 
 console.log("----------TOTAL------------")
 totalLoad(data)
