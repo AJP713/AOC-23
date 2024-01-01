@@ -9,6 +9,8 @@ let rawFull = "HQV = (LSD, NCQ)@TLQ = (VLQ, KVB)@LND = (BFJ, LGF)@SRL = (VXG, BR
 let directionsFull = "LRRLLRLLRRRLRRLRLRRRLRLLRLRRLRRRLRRRLRRLRRRLRLRRRLRLRRLRLRRRLRRLLRRLLLRRLRLRRRLRLRRRLRRLRRRLRLLRRLRRLRLRRRLRRRLRRLRRLLRLLRRRLRLRRLRRRLRRLRRRLRRRLLLLRRLRLRRRLRRRLLRRLLRRLRRRLRRRLRLRLLRRLRLRLRLRLRRLRLRLRRRLRRLRRLRRLRRRLRLRRRLRLRRLRLLLLRRRLLRRRLRLLRRRLRLLRRRLLRRLRLRLRLRLLLLRRLRRRLRLLRRLRRRLRRRLRLRRLRRLRLLRRRR"
 
 let directions = directionsRawEx
+//let directions = directionsFull
+
 let data = rawEx
 
 
@@ -39,9 +41,9 @@ for(let x =0; x<data.length;x++){
     colLeft.push(data[x].substring(7, 10))
     colRight.push(data[x].substring(12, 15))
 }
-console.log(colStart);
-console.log(colLeft);
-console.log(colRight);
+console.log("Start: "+ colStart);
+console.log("Left: " + colLeft);
+console.log("Right: " + colRight);
 
 let endA = []
 for(let i=0; i<colStart.length;i++){
@@ -50,50 +52,28 @@ for(let i=0; i<colStart.length;i++){
     }
 }
 
-let currIs = endA
-console.log("current indexes: "+currIs)
+console.log("ends in A: "+ endA)
+
+let x = 0 //x is the term from ends with A
+let startString = colStart[endA[x]]
+let curIndex = endA[x]
+let directIndex = 0
 let counter = 0
-let dirCount = 0
-let allZ = false
 
-while(!allZ){
-   // console.log(nextIs(currIs,directions[dirCount]))
-    currIs = nextIs(currIs,directions[dirCount])
-   // console.log("current indexes: "+currIs)
-    counter ++
-    dirCount= counter%directions.length
-    //console.log("counter: "+ counter)
-    //console.log("dirCounter: "+ dirCount)
-    if(allEndZ(currIs)){
-        console.log("finished at: " + counter )
-        allZ = true
+console.log("Start String: "+ startString)
+console.log("direction:" + directions[directIndex])
+
+for(let i = 0; i<5; i++){
+    console.log("dirInd: "+ directIndex + "  next directions: "+ directions[directIndex])
+    if(directions[directIndex]==1){
+        let next = colLeft[curIndex]
+        console.log("left: "+ next)
+        console.log(colStart.indexOf(next))
     }else{
-        if(counter%100000 == 0){
-            console.log("tik")
-        }
+        let next = colRight[curIndex]
+        console.log("right: "+ next)
+        console.log(colStart.indexOf(next))
     }
-}
-console.log("---------Final Count!!!    "+ counter)
-
-
-function allEndZ(indList){
-    for(let i=0; i<indList.length;i++){
-        if(colStart[indList[i]][2]!="Z"){
-            return false
-        }
-    }
-    return true
-}
-
-function nextIs(indList, direction){
-    let newIs = []
-    for(let i=0; i<indList.length;i++){
-        if(direction == 1){ //left
-            newIs.push(colStart.indexOf(colLeft[indList[i]]))
-        }else{  //right
-
-            newIs.push(colStart.indexOf(colRight[indList[i]]))
-        }
-    }
-    return newIs
+    directIndex = (directIndex+1)%directions.length
+    counter++
 }
