@@ -27,6 +27,7 @@ console.log(checkValid(test,[1,3,2,5]))
 
 //1st: takes board of "#" and "." as an array
 //2nd: rules of consecutive #s as integers
+//returns true or false if valid board.
 function checkValid(board,rules){
 
     board.push(".")
