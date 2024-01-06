@@ -12,9 +12,18 @@ for(let i = 0; i<data.length; i++){
         data[i][1][j]=Number(data[i][1][j])
     }
 }
+
 // console.log(data[0])
 // console.log(data[2][0])
 // console.log(data[2][1])
+let totalPos = 0
+for(let i=0; i<data.length; i++){
+    totalPos += countPossible(data[i])
+}
+console.log("-----TOTAL: " + totalPos)
+
+
+
 
 //data is organized as an array of input lines data[x], each line seperated into 2 parts: data[x][0] is the array of starting symbols, and data[x][1] is the array of numbers
 
@@ -99,26 +108,48 @@ function generateBinaryNumbers(n, k) {
     return result;
 }
 
-console.log(data[0][0])
-console.log(data[0][1])
-countPossible(data[0])
+
+
+
+
+//Takes in a single dataItem [board,rules] and returns the number of possible arrangments
+//
 function countPossible(dataItem){
     let countHQ = countChar(dataItem[0])
+    let questCount = countHQ[1]
     let bombSum = dataItem[1].reduce((a,b) => a+b ); // sums the array using reduce
     let bombRemain = bombSum - countHQ[0]
-    console.log("?=" + countHQ[1] + "  #=" + countHQ[0]+ " totalBombs="+ bombSum)
-    console.log("bombs remaining= "+ bombRemain)
+    //console.log(dataItem[0])
+    //console.log(dataItem[1])
+    //console.log("?=" + questCount + "  #=" + countHQ[0]+ " totalBombs="+ bombSum)
+    //console.log("bombs remaining= "+ bombRemain)
     let binArr = generateBinaryNumbers(countHQ[1],bombRemain)
-    console.log(binArr)
-    //TODO fix this mess of for loops
-    for(let k=0; k<binArr.length;k++){ //k is the index of binArr
-        for(let j = 0; j<binArr[k].length;j++){ //j is digit of a binary #
-            for(let i=0; i<dataItem[0].length;i++){  //i is the index for board position
-                if(dataItem[0][i]=="?"){
-                    console.log("at board spot: "+ i + "  try digit: " + binArr[k][j])
-                }
+    //console.log(binArr)
+    let possibleCount = 0
+    
+    for(let x=0; x<binArr.length;x++){
+    let testBoard = []
+    binDigCount = 0
+    for(let i=0;i<dataItem[0].length;i++){
+        if(dataItem[0][i]=="?"){
+            if(binArr[x][binDigCount]=="1"){
+                testBoard.push("#")
+            }else{
+                testBoard.push(".")
             }
+            binDigCount++
+        }else{
+            testBoard.push(dataItem[0][i])
         }
-    }   
+    }
+    //console.log(testBoard)
+    //console.log(checkValid(testBoard,dataItem[1]))
+    if(checkValid(testBoard,dataItem[1])){
+        possibleCount ++
+    }
+    
+    }
+    console.log("Possible count= " +possibleCount)
+    return possibleCount
 }
 
