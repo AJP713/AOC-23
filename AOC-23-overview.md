@@ -21,8 +21,15 @@ Advent of Code 2023
 11: 
 12: part 1 works but is a bit brute force trying all combos of ?'s with the correct number of # and . .  Part two has code but would take too long to ever complete.
 13: part 1 complete finding lines of reflection, part 2 TODO
+
 14: part 1 rolling objects complete, part 2 also complete, found cycle length and then used that as a multiple to find the anser.  
-15
+
+15:
+
 16:  
+
 17:  Full pathfinding needed, but with added condition of no more than 3 in a row.
-18: 
+
+18: Directions but same issue as day 10 part 2, how to determine inside from outside.
+
+19: 
