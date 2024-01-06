@@ -13,15 +13,41 @@ for(let i = 0; i<data.length; i++){
     }
 }
 
-// console.log(data[0])
-// console.log(data[2][0])
-// console.log(data[2][1])
+ //console.log(data[0])
+ console.log(data[0][0])
+ console.log(data[0][1])
+let newData = []
+
+for(let a = 0; a<data.length;a++){
+    let newBoard = []
+    let newRules = []
+    for(let t = 0; t<5;t++){
+        for(let i = 0; i<data[a][0].length;i++){
+            newBoard.push(data[a][0][i])
+        }
+        newBoard.push("?")
+        for(let i = 0; i<data[a][1].length;i++){
+            newRules.push(data[a][1][i])
+        }
+    }
+    newBoard.pop()
+   
+
+newData.push([newBoard,newRules])
+}
+data = newData
+console.log(data[0][0])
+console.log(data[0][1])
+console.log(data.length)
+findAllPossible()
+
+ function findAllPossible(){
 let totalPos = 0
 for(let i=0; i<data.length; i++){
     totalPos += countPossible(data[i])
 }
 console.log("-----TOTAL: " + totalPos)
-
+ }
 
 
 
