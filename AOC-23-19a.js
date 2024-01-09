@@ -65,5 +65,5 @@ console.log(rules[0][1][0])
 console.log(XMAS[0])
 ruleOut(rules[0][1])
 function ruleOut(part,rule){
-
+//TODO
 }
