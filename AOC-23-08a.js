@@ -10,9 +10,20 @@ let directionsFull = "LRRLLRLLRRRLRRLRLRRRLRLLRLRRLRRRLRRRLRRLRRRLRLRRRLRLRRLRLR
 let directions = directionsFull
 let data =rawFull
 
-directions = directions.replaceAll("L",1)
-directions = directions.replaceAll("R",2)
+let newDir = ""
+
+//directions = directions.replaceAll("L","1")
+//directions = directions.replaceAll("R","2")
 directions = directions.split("")
+for(let i=0; i<directions.length;i++){
+    if(directions[i]=="L"){
+        directions[i]=1
+    }else{
+        directions[i]=2
+    }
+}
+console.log(directions)
+
 for(let i=0; i<directions.length;i++){
     directions[i]=Number(directions[i])
 }
@@ -41,21 +52,21 @@ let directIndex = 0
 
 while(startString!="ZZZ"){
 newIndex = colStart.indexOf(startString)
-console.log( "index of string: " +newIndex)
-console.log("L or R: " + directions[directIndex])
+//console.log( "index of string: " +newIndex)
+//console.log("L or R: " + directions[directIndex])
 if(directions[directIndex]==1){
-    console.log("next L: "+ colLeft[newIndex])
+   // console.log("next L: "+ colLeft[newIndex])
     startString = colLeft[newIndex]
 }else if(directions[directIndex]==2){
-    console.log("next R: "+ colRight[newIndex])
+    //console.log("next R: "+ colRight[newIndex])
     startString = colRight[newIndex]
 }else{
     console.log("something is wrong with the directions list not 1 or 2")
 }
-console.log("new startString: "+ startString)
+//console.log("new startString: "+ startString)
 counter ++
-console.log("counter: "+ counter)
+//console.log("counter: "+ counter)
 directIndex = counter%directions.length
-console.log("directIndex "+ directIndex)
+//console.log("directIndex "+ directIndex)
 }
 console.log("final count: "+ counter)
